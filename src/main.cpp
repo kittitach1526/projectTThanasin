@@ -78,7 +78,7 @@ void loop() {
     {
       String data_serial = Serial.readString();
       Serial.println("RFID : "+data_serial);
-      http_b.post("update-sensor","temperature="+data_serial);
+      http_b.post("update-sensor","temperature="+data_serial);//test
       state =1;
     }
     //http_b.post("update-sensor","temperature=20");
