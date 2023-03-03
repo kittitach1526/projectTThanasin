@@ -14,10 +14,10 @@ class wifi_lib
         String data_ssid[10];
         void select_ssid();
 
-
-
-
     private :
+        void BeginEEP();
+        char test_string[10]="hello";
+        char read_eeprom[10];
 
 
 
