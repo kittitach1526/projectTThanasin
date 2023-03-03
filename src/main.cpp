@@ -60,7 +60,8 @@ void setup() {
   w.connect_wifi();
   oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
-  Serial.println("All Setup Complete!");
+  Serial.println("All Setup Complete!"); 
+  
   state =0;
 
 }
