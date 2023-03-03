@@ -53,7 +53,7 @@ void setup() {
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
-  Serial.println("Version : 0.1");
+  Serial.println("Version : 0.2 wifi Scan ");
   //swb.on_led();
   //rf_st.Init_rfid();
   w.searchWiFi();
