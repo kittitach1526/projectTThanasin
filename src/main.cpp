@@ -57,7 +57,7 @@ void setup() {
   //swb.on_led();
   //rf_st.Init_rfid();
   w.searchWiFi();
-  //w.connect_wifi();
+  w.connect_wifi();
   //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 

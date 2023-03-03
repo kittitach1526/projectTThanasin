@@ -55,10 +55,38 @@ void wifi_lib::searchWiFi()
     Serial.println("");
     select_ssid();
 }
+
 void wifi_lib::select_ssid()
 {
     
     for (int i=0;i<=5;i++){
         Serial.println(String(i+1)+"."+data_ssid[i]);
     }
+    Serial.print("Select Wifi 1-5 : ");
+    while(ssid ==""){
+        
+        if(Serial.available())
+        {
+            char data = Serial.read();
+            switch (data)
+            {
+            case '1':
+            ssid= data_ssid[0];
+            Serial.println("\nset ssid = "+data_ssid[0]);
+                break;
+            }
+        }
+        
+    }
+    Serial.print("Enter Password : ");
+    while(password == "")
+    {
+        if(Serial.available()>0)
+        {
+            String data = Serial.readString();
+            Serial.println("\npassword : "+data);
+            password = data;
+        }
+    }
+    Serial.println("Select funtion complete !");
 }
