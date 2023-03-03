@@ -47,18 +47,18 @@ void setup() {
   Wire.begin();
   Serial.begin(9600);
   
-  w.ssid = "Best&Man_2.4G-wlan";
-  w.password = "best5261";
-  http_b.server_url ="http://20.231.75.176:1880/";
-  customKeypad.begin( );
+  //w.ssid = "Best&Man_2.4G-wlan";
+  //w.password = "best5261";
+  //http_b.server_url ="http://20.231.75.176:1880/";
+  //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
-  oled.intit_display();
+  //oled.intit_display();
   Serial.println("Version : 0.1");
   //swb.on_led();
   //rf_st.Init_rfid();
-
-  w.connect_wifi();
-  oled.show(1," Code by Glenda");
+  w.searchWiFi();
+  //w.connect_wifi();
+  //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 
 
@@ -67,6 +67,7 @@ void setup() {
 }
 
 void loop() { 
+  /*
   if(state == 0)
   {
     while (Serial.available()<= 0 )
@@ -78,7 +79,7 @@ void loop() {
     {
       String data_serial = Serial.readString();
       Serial.println("RFID : "+data_serial);
-      http_b.post("update-sensor","temperature="+data_serial);//test
+      //http_b.post("update-sensor","temperature="+data_serial);//test
       state =1;
     }
     //http_b.post("update-sensor","temperature=20");

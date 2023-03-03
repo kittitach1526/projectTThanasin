@@ -10,6 +10,10 @@ class wifi_lib
         void connect_wifi();
         String ssid ="";
         String password ="";
+        void searchWiFi();
+        String data_ssid[10];
+        void select_ssid();
+
 
 
 
