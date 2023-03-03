@@ -106,17 +106,39 @@ void wifi_lib::select_ssid()
 
 void wifi_lib::BeginEEP()
 {
-    EEPROM.begin(10);
+    EEPROM.begin(100);
 }
 
 void wifi_lib::writeString(const char* toStore, int startAddr)
 {
     int i = 0;
+    Serial.println(LENGTH(toStore));
     for (; i < LENGTH(toStore); i++) {
     EEPROM.write(startAddr + i, toStore[i]);
+    Serial.print(toStore[i]);
+    delay(100);
+    EEPROM.commit();
+
     }
+    Serial.println();
     EEPROM.write(startAddr + i, '\0');
     EEPROM.commit();
+}
+
+String wifi_lib::readStringFromFlash1(int startAddr,int length) 
+{
+    char in[128];
+    char curIn;
+    int i = 0;
+    curIn = EEPROM.read(startAddr);
+    for (; i < 128; i++) {
+        curIn = EEPROM.read(startAddr + i);
+        Serial.print(curIn);
+        in[i] = curIn;
+        if (curIn=='\0') break;
+    }
+    Serial.println();
+    return String(in);
 }
 
 String wifi_lib::readStringFromFlash(int startAddr) 
@@ -134,10 +156,14 @@ String wifi_lib::readStringFromFlash(int startAddr)
 
 void wifi_lib::chech_eeprom_wifi()
 {
-    test_readeeprom_ssid = readStringFromFlash(addresss_ssid_eeprom);
+    Serial.println("YOYOYO");
+    writeString("Helld World", addresss_ssid_eeprom);
+    test_readeeprom_ssid = readStringFromFlash1(addresss_ssid_eeprom,20);
     test_readeeprom_password = readStringFromFlash(address_password_eeprom);
     Serial.println("Check ssid = "+test_readeeprom_ssid);
     Serial.println("Check password = "+test_readeeprom_password);
+
+    return;
     /*
     if(test_readeeprom_password == "")
     {

@@ -18,6 +18,7 @@ class wifi_lib
         void BeginEEP();
         void writeString(const char* toStore, int startAddr);
         String readStringFromFlash(int startAddr);
+        String readStringFromFlash1(int startAddr,int length);
         String test_readeeprom_ssid="";
         String test_readeeprom_password ="";
         byte addresss_ssid_eeprom = 0;
