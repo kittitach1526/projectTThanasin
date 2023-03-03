@@ -1,5 +1,7 @@
 #include "wifi_lib.h"
 #include "WiFi.h"
+#include <EEPROM.h>
+
 wifi_lib w;
 
 wifi_lib::wifi_lib()
