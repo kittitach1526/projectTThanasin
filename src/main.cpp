@@ -61,7 +61,7 @@ void setup() {
   oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 
-  
+
   state =0;
 
 }
@@ -78,7 +78,7 @@ void loop() {
     {
       String data_serial = Serial.readString();
       Serial.println("RFID : "+data_serial);
-      //http_b.post("update-sensor","temperature="+data_serial);
+      http_b.post("update-sensor","temperature="+data_serial);
       state =1;
     }
     //http_b.post("update-sensor","temperature=20");
