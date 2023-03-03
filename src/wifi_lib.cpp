@@ -92,3 +92,13 @@ void wifi_lib::select_ssid()
     }
     Serial.println("Select funtion complete !");
 }
+
+void wifi_lib::BeginEEP()
+{
+    EEPROM.begin(10);
+    EEPROM.put(4, test_string);
+    EEPROM.commit();
+    Serial.print("ITEM_INSIDE_SERIAL get=");
+    EEPROM.get(4,read_eeprom);
+    Serial.println(read_eeprom);
+}
