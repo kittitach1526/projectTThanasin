@@ -4,6 +4,8 @@
 
 wifi_lib w;
 
+#define LENGTH(x) (strlen(x) + 1)
+
 wifi_lib::wifi_lib()
 {
 
@@ -12,6 +14,7 @@ wifi_lib::wifi_lib()
 void wifi_lib::connect_wifi()
 {
     Serial.println("Connecting to "+ssid+" now !");
+    //BeginEEP();
     WiFi.begin(w.ssid.c_str(),w.password.c_str());
     while (WiFi.status() != WL_CONNECTED)
         {
@@ -67,13 +70,15 @@ void wifi_lib::select_ssid()
     Serial.print("Select Wifi 1-5 : ");
     while(ssid ==""){
         
-        if(Serial.available())
+        if(Serial.available()>0)
         {
             char data = Serial.read();
             switch (data)
             {
             case '1':
             ssid= data_ssid[0];
+            ssid.toCharArray(ssid_eeprom,20);
+            writeString(ssid_eeprom,addresss_ssid_eeprom);
             Serial.println("\nset ssid = "+data_ssid[0]);
                 break;
             }
@@ -88,17 +93,46 @@ void wifi_lib::select_ssid()
             String data = Serial.readString();
             Serial.println("\npassword : "+data);
             password = data;
+            password.toCharArray(password_eeprom,20);
+            writeString(password_eeprom,address_password_eeprom);
         }
     }
+    test_readeeprom_ssid = readStringFromFlash(addresss_ssid_eeprom);
+    Serial.println("Read Flash ssid : "+test_readeeprom_ssid);
+    test_readeeprom_password = readStringFromFlash(address_password_eeprom);
+    Serial.println("Read Flash password :"+test_readeeprom_password);
     Serial.println("Select funtion complete !");
 }
 
 void wifi_lib::BeginEEP()
 {
     EEPROM.begin(10);
-    //EEPROM.put(4, test_string);
-    //EEPROM.commit();
-    //Serial.print("ITEM_INSIDE_SERIAL get=");
-    //EEPROM.get(4,read_eeprom);
-    //Serial.println(read_eeprom);
+}
+
+void wifi_lib::writeString(const char* toStore, int startAddr)
+{
+    int i = 0;
+    for (; i < LENGTH(toStore); i++) {
+    EEPROM.write(startAddr + i, toStore[i]);
+    }
+    EEPROM.write(startAddr + i, '\0');
+    EEPROM.commit();
+}
+
+String wifi_lib::readStringFromFlash(int startAddr) 
+{
+    char in[128];
+    char curIn;
+    int i = 0;
+    curIn = EEPROM.read(startAddr);
+    for (; i < 128; i++) {
+        curIn = EEPROM.read(startAddr + i);
+        in[i] = curIn;
+    }
+    return String(in);
+}
+
+void wifi_lib::chech_eeprom_wifi()
+{
+    
 }

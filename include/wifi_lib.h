@@ -13,11 +13,27 @@ class wifi_lib
         void searchWiFi();
         String data_ssid[10];
         void select_ssid();
+        char read_ssid_eeprom[20];
+        char read_password_eeprom[20];
+        void BeginEEP();
+        void writeString(const char* toStore, int startAddr);
+        String readStringFromFlash(int startAddr);
+        String test_readeeprom_ssid="";
+        String test_readeeprom_password ="";
+        byte addresss_ssid_eeprom = 0;
+        byte address_password_eeprom = 80;
+        void chech_eeprom_wifi();
 
     private :
-        void BeginEEP();
+        
         char test_string[10]="hello";
         char read_eeprom[10];
+
+        char ssid_eeprom[20];
+        char password_eeprom[20];
+
+
+
 
 
 
