@@ -157,8 +157,9 @@ String wifi_lib::readStringFromFlash(int startAddr)
 void wifi_lib::chech_eeprom_wifi()
 {
     Serial.println("YOYOYO");
-    writeString("Helld World", addresss_ssid_eeprom);
-    test_readeeprom_ssid = readStringFromFlash1(addresss_ssid_eeprom,20);
+    //writeString("Helld World", addresss_ssid_eeprom);
+    //test_readeeprom_ssid = readStringFromFlash1(addresss_ssid_eeprom,20);
+    test_readeeprom_ssid = readStringFromFlash(addresss_ssid_eeprom);
     test_readeeprom_password = readStringFromFlash(address_password_eeprom);
     Serial.println("Check ssid = "+test_readeeprom_ssid);
     Serial.println("Check password = "+test_readeeprom_password);
