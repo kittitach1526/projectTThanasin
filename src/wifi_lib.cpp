@@ -134,5 +134,48 @@ String wifi_lib::readStringFromFlash(int startAddr)
 
 void wifi_lib::chech_eeprom_wifi()
 {
-    
+    test_readeeprom_ssid = readStringFromFlash(addresss_ssid_eeprom);
+    test_readeeprom_password = readStringFromFlash(address_password_eeprom);
+    Serial.println("Check ssid = "+test_readeeprom_ssid);
+    Serial.println("Check password = "+test_readeeprom_password);
+    /*
+    if(test_readeeprom_password == "")
+    {
+        Serial.println("No password on eeprom ! ");
+    }
+    if(test_readeeprom_ssid =="")
+    {
+        Serial.println("No ssid on eeprom ! ");
+    }*/
+    if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))
+    {
+        searchWiFi();
+    }
+    else {
+        int state_wifi = 0;
+        if (state_wifi == 0)
+        {
+            Serial.println("Next ? 1(yes)/2(no want to clear wifi)");
+            int data = 0;
+            while(data == 0)
+            {
+                if(Serial.available()>0)
+                {
+                    data = Serial.read();
+                }
+            }
+            switch(data)
+            {
+                case 1:
+                    Serial.println("Next >>>> yes connect");
+                    state_wifi =1;
+                    break;
+                case 2:
+                    Serial.println("Next >>>> no Clear Wifi");
+                    searchWiFi();
+                    state_wifi =1;
+                    break;
+            }
+        }
+    }
 }

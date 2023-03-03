@@ -21,7 +21,7 @@ class wifi_lib
         String test_readeeprom_ssid="";
         String test_readeeprom_password ="";
         byte addresss_ssid_eeprom = 0;
-        byte address_password_eeprom = 80;
+        byte address_password_eeprom = 20;
         void chech_eeprom_wifi();
 
     private :

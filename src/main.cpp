@@ -55,9 +55,10 @@ void setup() {
   //oled.intit_display();
   Serial.println("Version : 0.3 wifi Scan + eeprom complete ");
   w.BeginEEP();
+  w.chech_eeprom_wifi();
   //swb.on_led();
   //rf_st.Init_rfid();
-  w.searchWiFi();
+  //w.searchWiFi();
   w.connect_wifi();
   //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
