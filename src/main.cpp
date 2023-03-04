@@ -64,6 +64,7 @@ void setup() {
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 
   state =0;
+  
 
 }
 
