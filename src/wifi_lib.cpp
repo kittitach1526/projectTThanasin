@@ -156,7 +156,7 @@ String wifi_lib::readStringFromFlash(int startAddr)
 
 void wifi_lib::chech_eeprom_wifi()
 {
-    Serial.println("YOYOYO");
+    //Serial.println("YOYOYO");
     //writeString("Helld World", addresss_ssid_eeprom);
     //test_readeeprom_ssid = readStringFromFlash1(addresss_ssid_eeprom,20);
     test_readeeprom_ssid = readStringFromFlash(addresss_ssid_eeprom);
@@ -199,6 +199,7 @@ void wifi_lib::chech_eeprom_wifi()
                     break;
                 case 2:
                     Serial.println("Next >>>> no Clear Wifi");
+                    clearEEPROM();
                     searchWiFi();
                     state_wifi =1;
                     break;
@@ -218,4 +219,5 @@ void wifi_lib::clearEEPROM()
 
   // สิ้นสุดการใช้งาน EEPROM
     EEPROM.end();
+    Serial.println("Claer EEPROM Complete !");
 }
