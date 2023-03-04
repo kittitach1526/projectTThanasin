@@ -106,7 +106,7 @@ void wifi_lib::select_ssid()
 
 void wifi_lib::BeginEEP()
 {
-    EEPROM.begin(100);
+    EEPROM.begin(512);
 }
 
 void wifi_lib::writeString(const char* toStore, int startAddr)
