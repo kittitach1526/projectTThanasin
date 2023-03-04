@@ -154,7 +154,7 @@ String wifi_lib::readStringFromFlash(int startAddr)
     return String(in);
 }
 
-void wifi_lib::chech_eeprom_wifi()
+void wifi_lib::check_eeprom_wifi()
 {
     //Serial.println("YOYOYO");
     //writeString("Helld World", addresss_ssid_eeprom);
@@ -163,17 +163,6 @@ void wifi_lib::chech_eeprom_wifi()
     test_readeeprom_password = readStringFromFlash(address_password_eeprom);
     Serial.println("Check ssid = "+test_readeeprom_ssid);
     Serial.println("Check password = "+test_readeeprom_password);
-
-    return;
-    /*
-    if(test_readeeprom_password == "")
-    {
-        Serial.println("No password on eeprom ! ");
-    }
-    if(test_readeeprom_ssid =="")
-    {
-        Serial.println("No ssid on eeprom ! ");
-    }*/
     if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))
     {
         searchWiFi();

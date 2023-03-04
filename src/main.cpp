@@ -55,7 +55,7 @@ void setup() {
   //oled.intit_display();
   Serial.println("Version : 0.3 wifi Scan + eeprom complete ");
   w.BeginEEP();
-  w.chech_eeprom_wifi();
+  w.check_eeprom_wifi();
   //swb.on_led();
   //rf_st.Init_rfid();
   //w.searchWiFi();
