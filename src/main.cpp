@@ -53,7 +53,7 @@ void setup() {
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
-  Serial.println("\nVersion : 0.3 wifi Scan + eeprom");
+  Serial.println("\nVersion : 0.3 wifi Scan + eeprom + ");
   w.BeginEEP();
   w.check_eeprom_wifi();
   //swb.on_led();
@@ -64,7 +64,7 @@ void setup() {
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 
   state =0;
-  
+
 
 }
 
