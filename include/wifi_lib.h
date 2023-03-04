@@ -16,13 +16,10 @@ class wifi_lib
         char read_ssid_eeprom[20];
         char read_password_eeprom[20];
         void BeginEEP();
-        void writeString(const char* toStore, int startAddr);
-        String readStringFromFlash(int startAddr);
-        String readStringFromFlash1(int startAddr,int length);
         String test_readeeprom_ssid="";
         String test_readeeprom_password ="";
         byte addresss_ssid_eeprom = 0;
-        byte address_password_eeprom = 20;
+        byte address_password_eeprom = 50;
         void check_eeprom_wifi();
         void clearEEPROM();
 
