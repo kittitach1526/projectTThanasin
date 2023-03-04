@@ -24,6 +24,7 @@ class wifi_lib
         byte addresss_ssid_eeprom = 0;
         byte address_password_eeprom = 20;
         void chech_eeprom_wifi();
+        void clearEEPROM();
 
     private :
         
