@@ -206,3 +206,16 @@ void wifi_lib::chech_eeprom_wifi()
         }
     }
 }
+
+void wifi_lib::clearEEPROM()
+{
+    for (int i = 0; i < 512; i++) {
+        EEPROM.write(i, 0xFF);
+    }
+
+  // เซฟข้อมูลใน EEPROM
+    EEPROM.commit();
+
+  // สิ้นสุดการใช้งาน EEPROM
+    EEPROM.end();
+}
