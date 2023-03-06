@@ -54,14 +54,13 @@ void setup() {
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
   Serial.println("\nVersion : 0.3 wifi Scan + eeprom ");
-  //test-2
+  //test-3-
   w.BeginEEP();
   w.check_eeprom_wifi();
   //swb.on_led();
   //rf_st.Init_rfid();
   //w.searchWiFi();
   //w.connect_wifi();
-  
   //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
   Serial.println("All Setup Complete!"); 
