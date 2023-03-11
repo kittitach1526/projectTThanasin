@@ -55,7 +55,7 @@ void setup() {
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
-  Serial.println("\nVersion : 0.3 wifi Scan + eeprom ");
+  Serial.println("\nVersion : 0.4 http ");
   //test-3-
   //w.BeginEEP();
   //w.check_eeprom_wifi();
