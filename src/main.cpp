@@ -6,9 +6,9 @@
 #include "display_box.h"
 #include <Wire.h>
 #include "rfid_state.h"
-#include <rdm6300.h>
-#define RDM6300_RX_PIN  16
-Rdm6300 rdm6300;
+//#include <rdm6300.h>
+//#define RDM6300_RX_PIN  16
+//Rdm6300 rdm6300;
 String msg = " Code :";
 byte state=0;
 
@@ -55,14 +55,15 @@ void setup() {
   //oled.intit_display();
   Serial.println("\nVersion : 0.3 wifi Scan + eeprom ");
   //test-3-
-  w.BeginEEP();
-  w.check_eeprom_wifi();
+  //w.BeginEEP();
+  //w.check_eeprom_wifi();
   //swb.on_led();
   //rf_st.Init_rfid();
   //w.searchWiFi();
   //w.connect_wifi();
   //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
+  rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
   state =0;
 
@@ -70,6 +71,10 @@ void setup() {
 }
 
 void loop() { 
+  rf_st.read_rfid();
+  Serial.print("RFID : ");
+  Serial.println(rf_st.result_rfid);
+  delay(500);
   /*
   if(state == 0)
   {
