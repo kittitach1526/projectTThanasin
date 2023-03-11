@@ -67,3 +67,8 @@ String http_box::httpGETRequest(const char* serverName) {
 
     return payload;
 }
+
+String http_box::readJson()
+{
+    
+}

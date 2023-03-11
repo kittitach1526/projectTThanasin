@@ -12,6 +12,7 @@ class http_box
         String payload = "";
         String sensorReadings;
         float sensorReadingsArr[3];
+        String readJson();
         
 
 
