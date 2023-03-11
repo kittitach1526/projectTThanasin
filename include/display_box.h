@@ -9,6 +9,8 @@ class display_box
         void show(int line,char *data_to_show);
         void clear();
         void drawStr(byte x,byte y,String data);
+        void showString(int line,String data_display);
+        
 
     private:
 

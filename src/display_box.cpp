@@ -96,3 +96,28 @@ void display_box::drawStr(byte x,byte y,String data)
     display.drawString(x, y, data);
     display.display();
 }
+
+void display_box::showString(int line,String data_display)
+{
+    if(line == 1)
+    {
+        display.drawString(TAB0,LINE1,data_display);
+    }
+    if(line == 2)
+    {
+        display.drawString(TAB0,LINE2,data_display);
+    }
+    if(line == 3)
+    {
+        display.drawString(TAB0,LINE3,data_display);
+    }
+    if(line == 4)
+    {
+        display.drawString(TAB0,LINE4,data_display);
+    }
+    if(line == 5)
+    {
+        display.drawString(TAB0,LINE5,data_display);
+    }
+    display.display();
+}

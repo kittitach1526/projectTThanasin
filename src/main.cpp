@@ -49,7 +49,7 @@ void setup() {
   Serial.begin(9600);
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
-  //oled.intit_display();
+  oled.intit_display();
   Serial.println("\nVersion : 0.6 state ");
   //test-3-
   w.BeginEEP();
@@ -60,7 +60,9 @@ void setup() {
   //rf_st.Init_rfid();
   //w.searchWiFi();
   //w.connect_wifi();
-  //oled.show(1," Code by Glenda");
+  oled.show(1," Code by Glenda");
+  delay(1000);
+  oled.clear();
   //rdm6300.begin(RDM6300_RX_PIN);
   //rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
@@ -69,10 +71,18 @@ void setup() {
 
 void loop() { 
   
-  String keydata = getdataJson("code");
-  Serial.println("code : "+keydata);
-
-  delay(5000);
+  //String keydata = getdataJson("code");
+  //Serial.println("code : "+keydata);
+  if (state == 0)
+  {
+    //oled.show(1,"State 0");
+    if(Serial.available()>0)
+    {
+      int data = Serial.read();
+      //oled.show(3,"RFID :");
+    }
+  }
+  //delay(5000);
 }
 
 String getdataJson(String key_search)
