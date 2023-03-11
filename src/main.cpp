@@ -47,11 +47,6 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 void setup() {
   Wire.begin();
   Serial.begin(9600);
-  //w.ssid = "Best&Man_2.4G-wlan";
-  //w.password ="best5261";
-  //w.connect_wifi();
-  //w.ssid = "Best&Man_2.4G-wlan";
-  //w.password = "best5261";
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
