@@ -58,8 +58,9 @@ void setup() {
   Serial.println("\nVersion : 0.4 http ");
   //test-3-
   w.BeginEEP();
-  w.clearEEPROM();
+  //w.clearEEPROM();
   w.check_eeprom_wifi();
+  //w.searchWiFi();
   //swb.on_led();
   //rf_st.Init_rfid();
   //w.searchWiFi();

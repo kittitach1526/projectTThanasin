@@ -11,7 +11,7 @@ class wifi_lib
         String ssid ="";
         String password ="";
         void searchWiFi();
-        String data_ssid[10];
+        String data_ssid[100];
         void select_ssid();
         char read_ssid_eeprom[20];
         char read_password_eeprom[20];
