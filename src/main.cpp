@@ -47,9 +47,9 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 void setup() {
   Wire.begin();
   Serial.begin(9600);
-  w.ssid = "Best&Man_2.4G-wlan";
-  w.password ="best5261";
-  w.connect_wifi();
+  //w.ssid = "Best&Man_2.4G-wlan";
+  //w.password ="best5261";
+  //w.connect_wifi();
   //w.ssid = "Best&Man_2.4G-wlan";
   //w.password = "best5261";
   //customKeypad.begin( );
@@ -57,8 +57,9 @@ void setup() {
   //oled.intit_display();
   Serial.println("\nVersion : 0.4 http ");
   //test-3-
-  //w.BeginEEP();
-  //w.check_eeprom_wifi();
+  w.BeginEEP();
+  w.clearEEPROM();
+  w.check_eeprom_wifi();
   //swb.on_led();
   //rf_st.Init_rfid();
   //w.searchWiFi();
@@ -66,15 +67,14 @@ void setup() {
   //oled.show(1," Code by Glenda");
   //rdm6300.begin(RDM6300_RX_PIN);
   //rf_st.Init_rfid();
-  
   Serial.println("All Setup Complete!"); 
   state =0;
 }
 
 void loop() { 
   
-  String keydata = getdataJson("code");
-  Serial.println("code : "+keydata);
+  //String keydata = getdataJson("code");
+  //Serial.println("code : "+keydata);
 
   delay(5000);
 }

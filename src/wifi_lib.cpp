@@ -64,7 +64,7 @@ void wifi_lib::searchWiFi()
 void wifi_lib::select_ssid()
 {
     
-    for (int i=0;i<=5;i++){
+    for (int i=0;i<5;i++){
         Serial.println(String(i+1)+"."+data_ssid[i]);
     }
     Serial.print("Select Wifi 1-5 : ");
@@ -77,7 +77,7 @@ void wifi_lib::select_ssid()
             {
             case '1':
             ssid= data_ssid[0];
-            EEPROM.writeString(0,ssid);
+            EEPROM.put(0,ssid);
             EEPROM.commit();
             Serial.println("\nset ssid = "+ssid);
                 break;
@@ -93,7 +93,7 @@ void wifi_lib::select_ssid()
             String data = Serial.readString();
             Serial.println("\npassword : "+data);
             password = data;
-            EEPROM.writeString(32,password);
+            EEPROM.put(32,password);
             EEPROM.commit();
         }
     }
@@ -112,8 +112,10 @@ void wifi_lib::BeginEEP()
 
 void wifi_lib::check_eeprom_wifi()
 {
-    test_readeeprom_ssid = EEPROM.readString(0);
-    test_readeeprom_password = EEPROM.readString(32);
+    //test_readeeprom_ssid = EEPROM.readString(0);
+    //test_readeeprom_password = EEPROM.readString(32);
+    EEPROM.get(0,test_readeeprom_ssid);
+    EEPROM.get(32,test_readeeprom_password);
 
     Serial.println("Check ssid = "+test_readeeprom_ssid);
     Serial.println("Check password = "+test_readeeprom_password);
