@@ -37,13 +37,13 @@ void wifi_lib::searchWiFi()
     delay(100);
     Serial.println("Setup done");
     Serial.println("scan start");
-    oled.show(1," Scan WiFi ...");
+    //oled.show(1," Scan WiFi ...");
     int n = WiFi.scanNetworks();
-    oled.clear();
+    //oled.clear();
     Serial.println(" scan done");
-    oled.show(1," Scan done");
+    //oled.show(1," Scan done");
     delay(1000);
-    oled.clear();
+    //oled.clear();
 
     if (n == 0) {
     Serial.println("no networks found");
@@ -51,7 +51,7 @@ void wifi_lib::searchWiFi()
     else {
     Serial.print(n);
     Serial.println(" networks found");
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < 5; ++i) {
         //Serial.print(i + 1);
         //Serial.print(": ");
         //Serial.print(WiFi.SSID(i));
@@ -118,8 +118,8 @@ void wifi_lib::BeginEEP()
 
 void wifi_lib::check_eeprom_wifi()
 {
-    oled.clear();
-    oled.show(1," Check WiFi ...");
+    //oled.clear();
+    //oled.show(1," Check WiFi ...");
     delay(1000);
     test_readeeprom_ssid = EEPROM.readString(0);
     test_readeeprom_password = EEPROM.readString(32);
@@ -127,9 +127,9 @@ void wifi_lib::check_eeprom_wifi()
     //EEPROM.get(32,test_readeeprom_password);
     Serial.println(" Check ssid = "+test_readeeprom_ssid);
     Serial.println(" Check password = "+test_readeeprom_password);
-    oled.clear();
-    oled.showString(1," ssid : "+test_readeeprom_ssid);
-    oled.showString(2," pass : "+test_readeeprom_password);
+    //oled.clear();
+    //oled.showString(1," ssid : "+test_readeeprom_ssid);
+    //oled.showString(2," pass : "+test_readeeprom_password);
     delay(3000);
 
     if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))

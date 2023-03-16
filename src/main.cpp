@@ -43,13 +43,15 @@ Keypad_I2C customKeypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS, I2CADDR
   oled = display_box.h
 */
 String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?id_mc=02-02&id_rfid=0004953220&id_activity=4539&activity_type=1&no_send=1&no_pulse1=300&no_pulse2=1&no_pulse3=100&multiplier=1";
-
+String test_nodered = "http://20.231.75.176:1880/update-sensor?temperature=40.00";
+String get_sensor = "http://20.231.75.176:1880/get-sensor?temp=40.00";
+String test_banknode ="http://192.168.1.81:1880/test?id=123456";
 void setup() {
   Wire.begin();
   Serial.begin(9600);
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
-  oled.intit_display();
+  //oled.intit_display();
   Serial.println("\nVersion : 0.6 state ");
   //test-3-
   w.BeginEEP();
@@ -60,9 +62,9 @@ void setup() {
   //rf_st.Init_rfid();
   //w.searchWiFi();
   //w.connect_wifi();
-  oled.show(1," Code by Glenda");
+  //oled.show(1," Code by Glenda");
   delay(1000);
-  oled.clear();
+  //oled.clear();
   //rdm6300.begin(RDM6300_RX_PIN);
   //rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
@@ -71,9 +73,10 @@ void setup() {
 
 void loop() { 
   
-  //String keydata = getdataJson("code");
-  //Serial.println("code : "+keydata);
-  if (state == 0)
+  String keydata = getdataJson("rfid");
+  Serial.println("rfid : "+keydata);
+  delay(1000);
+  /*if (state == 0)
   {
     //oled.show(1,"State 0");
     if(Serial.available()>0)
@@ -82,12 +85,13 @@ void loop() {
       //oled.show(3,"RFID :");
     }
   }
-  //delay(5000);
+  //delay(5000);*/
 }
 
 String getdataJson(String key_search)
 {
-  http.begin(serverUrl);
+  //http.begin(serverUrl);
+  http.begin(test_banknode);
   int httpResponseCode = http.GET();
 
   if (httpResponseCode == 200) {
