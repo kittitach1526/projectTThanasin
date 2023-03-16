@@ -9,29 +9,14 @@
 //#include <rdm6300.h>
 //#define RDM6300_RX_PIN  16
 //Rdm6300 rdm6300;
-String msg = " Code :";
+//String msg = " Code :";
 byte state=0;
 String getdataJson(String key_search);
-#include <Keypad_I2C.h>
-#include <Keypad.h>
+
 #include <Wire.h>
 HTTPClient http;
-#define I2CADDR 0x20
 
-const byte ROWS = 4;
-const byte COLS = 4;
 
-char keys[ROWS][COLS] = {
-    {'D','C','B','A'},
-    {'#','9','6','3'},
-    {'0','8','5','2'},
-    {'*','7','4','1'}
-};
-
-byte rowPins[ROWS] = {0, 1, 2, 3};
-byte colPins[COLS] = {4, 5, 6, 7};
-
-Keypad_I2C customKeypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS, I2CADDR, PCF8574 );
 /*
   w = wifi_lib.h
   http_b = htttp_box.h
@@ -49,10 +34,14 @@ String test_banknode ="http://192.168.1.81:1880/test?id=123456";
 void setup() {
   Wire.begin();
   Serial.begin(9600);
-  //customKeypad.begin( );
+
   //swb.setpin_switch(25,27,12);//w,b,y
-  //oled.intit_display();
-  Serial.println("\nVersion : 0.7 state+rfid ");
+  oled.intit_display();
+  oled.clear();
+  oled.show(1," Code by Glenda");
+  delay(1000);
+  oled.clear();
+  Serial.println("\nVersion : 0.7 keypad ");
   //test-3-
   w.BeginEEP();
   //w.clearEEPROM();
@@ -62,9 +51,6 @@ void setup() {
   //rf_st.Init_rfid();
   //w.searchWiFi();
   //w.connect_wifi();
-  //oled.show(1," Code by Glenda");
-  delay(1000);
-  //oled.clear();
   //rdm6300.begin(RDM6300_RX_PIN);
   //rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
@@ -73,9 +59,9 @@ void setup() {
 
 void loop() { 
   
-  String keydata = getdataJson("rfid");
-  Serial.println("rfid : "+keydata);
-  delay(1000);
+  //String keydata = getdataJson("rfid");
+  //Serial.println("rfid : "+keydata);
+  //delay(1000);
   /*if (state == 0)
   {
     //oled.show(1,"State 0");

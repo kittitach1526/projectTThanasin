@@ -113,13 +113,16 @@ void wifi_lib::select_ssid()
 
 void wifi_lib::BeginEEP()
 {
+    oled.show(1," check eeprom..");
     EEPROM.begin(64);
+    delay(1000);
+    oled.clear();
 }
 
 void wifi_lib::check_eeprom_wifi()
 {
-    //oled.clear();
-    //oled.show(1," Check WiFi ...");
+    oled.clear();
+    oled.show(1," Check WiFi ...");
     delay(1000);
     test_readeeprom_ssid = EEPROM.readString(0);
     test_readeeprom_password = EEPROM.readString(32);
@@ -127,9 +130,9 @@ void wifi_lib::check_eeprom_wifi()
     //EEPROM.get(32,test_readeeprom_password);
     Serial.println(" Check ssid = "+test_readeeprom_ssid);
     Serial.println(" Check password = "+test_readeeprom_password);
-    //oled.clear();
-    //oled.showString(1," ssid : "+test_readeeprom_ssid);
-    //oled.showString(2," pass : "+test_readeeprom_password);
+    oled.clear();
+    oled.showString(1," ssid : "+test_readeeprom_ssid);
+    oled.showString(2," pass : "+test_readeeprom_password);
     delay(3000);
 
     if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))
@@ -141,8 +144,12 @@ void wifi_lib::check_eeprom_wifi()
         int state_wifi = 0;
         if (state_wifi == 0)
         {
+            //oled.clear();
+            oled.showString(3,"1.connect this wifi");
+            oled.showString(4,"2.change wifi");
             Serial.print("Next ? 1(yes)/2(no want to clear wifi) : ");
             int data = 0;
+            /*
             while(data == 0)
             {
                 if(Serial.available()>0)
@@ -168,7 +175,7 @@ void wifi_lib::check_eeprom_wifi()
                     connect_wifi();
                     state_wifi =1;
                     break;
-            }
+            }*/
         }
     }
 }
