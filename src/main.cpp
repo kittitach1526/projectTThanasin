@@ -52,7 +52,7 @@ void setup() {
   //customKeypad.begin( );
   //swb.setpin_switch(25,27,12);//w,b,y
   //oled.intit_display();
-  Serial.println("\nVersion : 0.6 state ");
+  Serial.println("\nVersion : 0.7 state+rfid ");
   //test-3-
   w.BeginEEP();
   //w.clearEEPROM();
