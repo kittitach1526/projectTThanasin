@@ -45,9 +45,9 @@ void setup() {
   oled.clear();
   Serial.println("\nVersion : 0.7 keypad ");
   //test-3-
-  w.BeginEEP();
+  //w.BeginEEP();
   //w.clearEEPROM();
-  w.check_eeprom_wifi();
+  //w.check_eeprom_wifi();
   //w.searchWiFi();
   //swb.on_led();
   //rf_st.Init_rfid();

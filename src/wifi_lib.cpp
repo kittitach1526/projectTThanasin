@@ -179,7 +179,6 @@ void wifi_lib::check_eeprom_wifi()
                     connect_wifi();
                     state_wifi =1;
                     break;
-
                 default:
                     select_wifi ='e';
                     oled.clear();
