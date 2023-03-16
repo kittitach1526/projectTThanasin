@@ -37,7 +37,7 @@ void display_box::intit_display()
     display.setTextAlignment(TEXT_ALIGN_LEFT);
     dw_font_init(&myfont, 128, 64, draw_pixel, clear_pixel);
     dw_font_setfont(&myfont, &font_th_sarabun_new_regular14);
-    show(1," Code by Glenda");
+    //show(1," Code by Glenda");
     delay(1000);
     clear();
 
