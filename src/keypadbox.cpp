@@ -38,6 +38,9 @@ char keypadbox::readkeypad()
         return customKey;
         
     }
+    else{
+        return 'e';
+    }
 }
 
 void keypadbox::test()

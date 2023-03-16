@@ -151,7 +151,46 @@ void wifi_lib::check_eeprom_wifi()
             Serial.print("Next ? 1(yes)/2(no want to clear wifi) : ");
             Serial.print("select : ");
             Serial.println(select_wifi);
-            //while
+            while(select_wifi == 'e')
+            {
+                select_wifi = kp.readkeypad();
+            }
+            Serial.print("\nSelect wifi : ");
+            Serial.println(select_wifi);
+            switch(select_wifi)
+            {
+                case '1':
+                    oled.clear();
+                    oled.showString(1," ok connect wifi..");
+                    Serial.println("Next >>>> yes connect");
+                    ssid = test_readeeprom_ssid;
+                    password = test_readeeprom_password;
+                    connect_wifi();
+                    oled.clear();
+                    oled.showString(1,"Connect complete!");
+                    delay(1000);
+                    oled.clear();
+                    state_wifi =1;
+                    break;
+                case '2':
+                    Serial.println("Next >>>> no Clear Wifi");
+                    clearEEPROM();
+                    searchWiFi();
+                    connect_wifi();
+                    state_wifi =1;
+                    break;
+
+                default:
+                    select_wifi ='e';
+                    oled.clear();
+                    oled.showString(1,"Try Again !!");
+                    delay(2000);
+                    oled.clear();
+                    oled.showString(3,"1.connect this wifi");
+                    oled.showString(4,"2.change wifi");
+                    Serial.println("Try Again!! ");
+            }
+
             //int data = 0;
             /*
             while(data == 0)
