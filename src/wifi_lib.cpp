@@ -2,6 +2,7 @@
 #include "WiFi.h"
 #include <EEPROM.h>
 #include "display_box.h"
+#include "keypadbox.h"
 wifi_lib w;
 
 #define LENGTH(x) (strlen(x) + 1)
@@ -148,7 +149,10 @@ void wifi_lib::check_eeprom_wifi()
             oled.showString(3,"1.connect this wifi");
             oled.showString(4,"2.change wifi");
             Serial.print("Next ? 1(yes)/2(no want to clear wifi) : ");
-            int data = 0;
+            Serial.print("select : ");
+            Serial.println(select_wifi);
+            //while
+            //int data = 0;
             /*
             while(data == 0)
             {

@@ -22,6 +22,7 @@ class wifi_lib
         byte address_password_eeprom = 50;
         void check_eeprom_wifi();
         void clearEEPROM();
+        char select_wifi='e';
 
     private :
         

@@ -8,8 +8,9 @@ class keypadbox
     public:
         void keypad();
         void beginkeypad();
-        String readkeypad();
+        char readkeypad();
         String msg="";
+        void test();
 
 
     private:

@@ -25,7 +25,22 @@ void keypadbox::beginkeypad()
     customKeypad.begin( );
 }
 
-String keypadbox::readkeypad()
+char keypadbox::readkeypad()
+{
+    char customKey = customKeypad.getKey();
+    //oled.drawStr(0,0,msg);
+    if (customKey != NO_KEY)
+    {
+        Serial.println(customKey);
+        //msg += customKey;
+        Serial.println(msg);
+        //oled.drawStr(0,0,msg);
+        return customKey;
+        
+    }
+}
+
+void keypadbox::test()
 {
     char customKey = customKeypad.getKey();
     //oled.drawStr(0,0,msg);
@@ -35,5 +50,6 @@ String keypadbox::readkeypad()
         msg += customKey;
         Serial.println(msg);
         //oled.drawStr(0,0,msg);
+        
     }
 }

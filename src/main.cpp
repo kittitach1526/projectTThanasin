@@ -6,6 +6,8 @@
 #include "rfid_state.h"
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include "keypadbox.h"
+
 //#include <rdm6300.h>
 //#define RDM6300_RX_PIN  16
 //Rdm6300 rdm6300;
@@ -34,11 +36,11 @@ String test_banknode ="http://192.168.1.81:1880/test?id=123456";
 void setup() {
   Wire.begin();
   Serial.begin(9600);
-
+  kp.beginkeypad();
   //swb.setpin_switch(25,27,12);//w,b,y
   oled.intit_display();
   oled.clear();
-  oled.show(1," Code by Glenda");
+  oled.show(1," Code by Glenda 0.7");
   delay(1000);
   oled.clear();
   Serial.println("\nVersion : 0.7 keypad ");
@@ -58,7 +60,9 @@ void setup() {
 }
 
 void loop() { 
-  
+  //char data = kp.readkeypad();
+  //Serial.println(data);
+  //kp.test();
   //String keydata = getdataJson("rfid");
   //Serial.println("rfid : "+keydata);
   //delay(1000);
