@@ -1,0 +1,9 @@
+touch ตรวจสอบข้อมูลพนักงาน และสถานะเครื่อง
+http://192.168.1.103:1880/touch?id_mc=mc100&rfid=1165304620
+
+addActivity สร้างข้อมูลงาน
+http://192.168.1.103:1880/addActivity?id_task=123459999&id_mc=mc100&id_staff=uf7896&ac_type=2&job_id=12999&item_on=fn&op_id=200&op_color=1022&op_side=fnu
+
+
+getDataTouch_v3 แสดงข้อมูลงาน
+http://192.168.1.103:1880/getDataTouch_v3?id_task=123456789
