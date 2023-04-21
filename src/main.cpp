@@ -40,10 +40,10 @@ void setup() {
   //swb.setpin_switch(25,27,12);//w,b,y
   oled.intit_display();
   oled.clear();
-  oled.show(1," Code by Glenda 0.7");
+  oled.show(1," Code by Glenda 0.8");
   delay(1000);
   oled.clear();
-  Serial.println("\nVersion : 0.7 keypad ");
+  Serial.println("\nVersion : 0.8 api ");
   //test-3-
   //w.BeginEEP();
   //w.clearEEPROM();
