@@ -13,7 +13,8 @@
 //Rdm6300 rdm6300;
 //String msg = " Code :";
 byte state=0;
-String getdataJson(String key_search);
+String getdataJsonTouch(String key_search);
+String getdataJsonGetDataTouch(String key_search);
 void checkState();
 
 
@@ -49,8 +50,8 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 String test_nodered = "http://20.231.75.176:1880/update-sensor?temperature=40.00";
 String get_sensor = "http://20.231.75.176:1880/get-sensor?temp=40.00";
 String test_banknode ="http://192.168.1.81:1880/test?id=123456";
-String api = "";
-String api2 ="";
+String api_touch= "http://20.231.75.176:1880/touch?id_mc="+mc01.mc_number+"&rfid="+mc01.rfid;
+String api_getdatatouch ="http://20.231.75.176:1880/getDataTouch_v3?id_task=1234567890";
 
 
 void setup() {
@@ -119,6 +120,11 @@ void loop() {
       }
     }
     Serial.println("mc01.rfid = "+mc01.rfid);
+    state =1 ;
+  }
+  if (state == 1 )
+  {
+
   }
 }
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -137,7 +143,40 @@ String getValue(String data, char separator, int index)
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
-String getdataJson(String key_search)
+String getdataJsonTouch(String key_search)
+{
+  //http.begin(serverUrl);
+  http.begin(test_banknode);
+  int httpResponseCode = http.GET();
+
+  if (httpResponseCode == 200) {
+    String payload = http.getString();
+    Serial.print("Json : ");
+    Serial.println(payload);
+
+    // Parse JSON object
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, payload);
+    if (error) {
+      Serial.print(F("deserializeJson() failed: "));
+      Serial.println(error.c_str());
+      return "error";
+      //return;
+    }
+    // Extract values
+    //const char* title = doc["title"];
+    //bool completed = doc["completed"];
+    String getdata = doc[key_search];
+    Serial.println("Value frome key : "+getdata);
+    return getdata;
+  } 
+  else {
+    Serial.print("HTTP Response code: ");
+    Serial.println(httpResponseCode);
+  }
+  http.end();
+}
+String getdataJsonGetDataTouch(String key_search)
 {
   //http.begin(serverUrl);
   http.begin(test_banknode);
