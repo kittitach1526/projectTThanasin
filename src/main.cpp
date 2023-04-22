@@ -19,6 +19,11 @@ void checkState();
 
 #include <Wire.h>
 HTTPClient http;
+typedef struct mc
+{
+  String rfid = "";
+  String mc_number = "mc101";
+}mc;
 
 typedef struct dataStaff
 {
@@ -74,6 +79,7 @@ void setup() {
 }
 /*-----------------------------------------------------------------------------------------------------------*/
 dataStaff staff;
+mc mc01;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
@@ -96,7 +102,20 @@ void loop() {
   checkState();
   if(state == 0)
   {
-    
+    if(mc01.rfid= "")
+    {
+      Serial.println("Please insert rfid number : ");
+      while(mc01.rfid == "")
+      {
+        if((Serial.available())>0)
+        {
+          String data = Serial.readString();
+          Serial.print("data Serial : "+data+"\n");
+          mc01.rfid = data;
+          Serial.println("mc01.rfid = "+mc01.rfid);
+        }
+      }
+    }
   }
 
 }
