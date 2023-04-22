@@ -7,3 +7,18 @@ http://192.168.1.103:1880/addActivity?id_task=123459999&id_mc=mc100&id_staff=uf7
 
 getDataTouch_v3 แสดงข้อมูลงาน
 http://192.168.1.103:1880/getDataTouch_v3?id_task=123456789
+
+
+new api
+touch
+success
+http://20.231.75.176:1880/touch?id_mc=mc200&rfid=1234567890 
+error
+http://20.231.75.176:1880/touch?id_mc=mc100&rfid=1234567890 
+
+addActivity ถ้าจะทดสอบเปลี่ยน id_task เลข 10 หลักห้ามซ้ำ
+http://20.231.75.176:1880/addActivity?id_task=1234567890&id_mc=mc200&id_staff=uf7896&ac_type=2&job_id=12999&item_on=fn&op_id=200&op_color=1022&op_side=fnu
+
+getDataTouch_v3
+http://20.231.75.176:1880/getDataTouch_v3?id_task=1234567890
+20.231.75.176

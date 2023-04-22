@@ -22,7 +22,7 @@ HTTPClient http;
 typedef struct mc
 {
   String rfid = "";
-  String mc_number = "mc101";
+  String mc_number = "mc200";
 }mc;
 
 typedef struct dataStaff
@@ -49,6 +49,9 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 String test_nodered = "http://20.231.75.176:1880/update-sensor?temperature=40.00";
 String get_sensor = "http://20.231.75.176:1880/get-sensor?temp=40.00";
 String test_banknode ="http://192.168.1.81:1880/test?id=123456";
+String api = "";
+String api2 ="";
+
 
 void setup() {
   Wire.begin();
@@ -112,12 +115,11 @@ void loop() {
           String data = Serial.readString();
           Serial.print("data Serial : "+data+"\n");
           mc01.rfid = data;
-          Serial.println("mc01.rfid = "+mc01.rfid);
         }
       }
     }
+    Serial.println("mc01.rfid = "+mc01.rfid);
   }
-
 }
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 String getValue(String data, char separator, int index)
