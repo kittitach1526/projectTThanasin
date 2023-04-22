@@ -14,32 +14,37 @@
 //String msg = " Code :";
 byte state=0;
 String getdataJson(String key_search);
+void checkState();
+//Stirng getDataApi(String data, char separator, int index);
 
 #include <Wire.h>
 HTTPClient http;
 
-typedef struct userdata
+typedef struct dataStaff
 {
-    String rfid="";
-    String name="";
-    String lastname="";
-    String work="";
-    String mcnumber="01";
-}userdata;
-/*
-  w = wifi_lib.h
-  http_b = htttp_box.h
-  key = keypad_box.h
-  swb = switch_box.h
-  blue switch pin = 27;
-  yellow switch pin = 12;
-  white switch pin = 25;
-  oled = display_box.h
-*/
+  String id_staff ="";
+  String name_first = "";
+  String name_last = "";
+  String role ="";
+  String id_task ="";
+  String id_job ="";
+  String item_no = "";
+  String operation ="";
+  String op_color ="";
+  String op_side ="";
+  String op_name ="";
+  String qty_oder ="";
+  String qty_comp = "";
+  String qty_opcn ="";
+  String multiplior ="";
+  String qty_shif ="";
+}dataStaff;
+
 String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?id_mc=02-02&id_rfid=0004953220&id_activity=4539&activity_type=1&no_send=1&no_pulse1=300&no_pulse2=1&no_pulse3=100&multiplier=1";
 String test_nodered = "http://20.231.75.176:1880/update-sensor?temperature=40.00";
 String get_sensor = "http://20.231.75.176:1880/get-sensor?temp=40.00";
 String test_banknode ="http://192.168.1.81:1880/test?id=123456";
+
 void setup() {
   Wire.begin();
   Serial.begin(9600);
@@ -64,11 +69,11 @@ void setup() {
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
   state =0;
+  checkState();
   
 }
 /*-----------------------------------------------------------------------------------------------------------*/
-userdata staff;
-
+dataStaff staff;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
@@ -88,23 +93,12 @@ void loop() {
     }
   }
   //delay(5000);*/
+  checkState();
   if(state == 0)
-  {
-    while(staff.rfid ="")
-    {
-      if(Serial.available()>0)
-      {
-        String data = Serial.readString();
-        staff.rfid=data;
-      }
-    }
-    Serial.println("RFID : "+staff.rfid);
-    state = 1 ;
-  }
-  if(state == 1)
   {
     
   }
+
 }
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 String getValue(String data, char separator, int index)
@@ -155,6 +149,15 @@ String getdataJson(String key_search)
   }
   http.end();
 }
+/*
+Stirng getDataApi(String data, char separator, int index)
+{
 
-
+}*/
+void checkState()
+{
+  Serial.println();
+  Serial.print("State : ");
+  Serial.println(state);
+}
 
