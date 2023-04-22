@@ -15,7 +15,7 @@
 byte state=0;
 String getdataJson(String key_search);
 void checkState();
-//Stirng getDataApi(String data, char separator, int index);
+
 
 #include <Wire.h>
 HTTPClient http;
@@ -149,11 +149,7 @@ String getdataJson(String key_search)
   }
   http.end();
 }
-/*
-Stirng getDataApi(String data, char separator, int index)
-{
 
-}*/
 void checkState()
 {
   Serial.println();
