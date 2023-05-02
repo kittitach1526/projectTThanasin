@@ -19,5 +19,7 @@ void rfid_state::read_rfid()
     if(rdm6300.update())
     {
         result_rfid = String(rdm6300.get_tag_id());
+        Serial.print("RFID Length : ");
+        Serial.println(result_rfid.length());
     }
 }

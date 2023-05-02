@@ -13,14 +13,10 @@ String getdataJson();
 String getValue(String data, char separator, int index);
 void checkState();
 
+String mc_number = "mc200";
 
 #include <Wire.h>
 HTTPClient http;
-typedef struct mc
-{
-  String rfid = "";
-  String mc_number = "mc200";
-}mc;
 
 typedef struct dataStaff
 {
@@ -46,6 +42,7 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 
 String Nodered_2 = "http://20.231.75.176:1880/touch?id_mc=mc200&rfid=1165304621";
 
+
 void setup() {
   Wire.begin();
   Serial.begin(9600);
@@ -56,7 +53,7 @@ void setup() {
   oled.show(1," Code by Glenda 0.8");
   delay(1000);
   oled.clear();
-  Serial.println("\nVersion : 0.8  check rfid + wifi +state 0 ");
+  Serial.println("\nVersion : 0.8  check rfid + wifi + api  ");
   w.BeginEEP();
   w.check_eeprom_wifi();
   //swb.on_led();
@@ -66,7 +63,6 @@ void setup() {
 }
 /*-----------------------------------------------------------------------------------------------------------*/
 dataStaff staff;
-mc mc01;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
@@ -84,12 +80,14 @@ void loop() {
     oled.showString(1,"Now state 0 ");
     delay(2000);
     oled.clear();
+    Serial.println("tap keycard ..");
     oled.showString(1,"tap keycard ..");
     while(rf_st.result_rfid =="")
     {
       rf_st.read_rfid();
     }
     Serial.println("RFID : "+rf_st.result_rfid);
+
     oled.clear();
     String data_to_show = "RFID : "+rf_st.result_rfid;
     oled.showString(1,data_to_show);
@@ -126,9 +124,10 @@ String getValue(String data, char separator, int index)
 }
 String getdataJson()
 {
+  String test_server = "http://20.231.75.176:1880/touch?id_mc="+mc_number+"&rfid="+rf_st.result_rfid;
   String key_search="";
   //http.begin(serverUrl);
-  http.begin(Nodered_2);
+  http.begin(test_server);
   int httpResponseCode = http.GET();
 
   if (httpResponseCode == 200) {
