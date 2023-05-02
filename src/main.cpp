@@ -11,7 +11,7 @@
 byte state=0;
 String getdataJson();
 String getValue(String data, char separator, int index);
-void checkState();
+
 
 String mc_number = "mc200";
 
