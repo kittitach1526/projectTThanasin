@@ -91,7 +91,7 @@ void loop() {
     oled.clear();
     String data_to_show = "RFID : "+rf_st.result_rfid;
     oled.showString(1,data_to_show);
-    delay(5000);
+    delay(2000);
     oled.clear();
     state = 1 ;
     Serial.println(" Go to > State 1 ");
@@ -125,7 +125,7 @@ String getValue(String data, char separator, int index)
 String getdataJson()
 {
   String test_server = "http://20.231.75.176:1880/touch?id_mc="+mc_number+"&rfid="+rf_st.result_rfid;
-  String key_search="";
+  String key_search="job_id";
   //http.begin(serverUrl);
   http.begin(test_server);
   int httpResponseCode = http.GET();
@@ -133,10 +133,13 @@ String getdataJson()
   if (httpResponseCode == 200) {
     String payload = http.getString();
     Serial.print("Json : ");
+    //Serial.println(payload);
+    payload = getValue(payload,'[',1);
+    payload = getValue(payload,']',0);
     Serial.println(payload);
 
     // Parse JSON object
-    StaticJsonDocument<200> doc;
+    DynamicJsonDocument doc(1024);
     DeserializationError error = deserializeJson(doc, payload);
     if (error) {
       Serial.print(F("deserializeJson() failed: "));
@@ -144,16 +147,15 @@ String getdataJson()
       return "error";
       //return;
     }
-    // Extract values
-    //const char* title = doc["title"];
-    //bool completed = doc["completed"];
-    String getdata = doc[key_search];
-    Serial.println("Value frome key : "+getdata);
-    return getdata;
+    int getdata = doc[key_search];
+    Serial.println("Value frome key : "+String(getdata));
+    
   } 
   else {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
   }
+  Serial.println("return resources ..");
+  delay(1000);
   http.end();
 }
