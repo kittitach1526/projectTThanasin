@@ -33,7 +33,8 @@ void wifi_lib::searchWiFi()
 {
     //Serial.begin(115200);
 
-    WiFi.mode(WIFI_STA);
+   // WiFi.mode(WIFI_STA);
+    WiFi.mode(WIFI_MODE_APSTA);
     WiFi.disconnect();
     delay(100);
     Serial.println("Setup done");
@@ -158,7 +159,7 @@ void wifi_lib::check_eeprom_wifi()
     oled.clear();
     oled.showString(1," ssid : "+test_readeeprom_ssid);
     oled.showString(2," pass : "+test_readeeprom_password);
-    delay(1000);
+    //delay(1000);
 
     if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))
     {

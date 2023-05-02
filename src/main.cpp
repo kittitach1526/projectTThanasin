@@ -16,7 +16,7 @@ String getValue(String data, char separator, int index);
 String mc_number = "mc200";
 
 #include <Wire.h>
-HTTPClient http;
+
 
 typedef struct dataStaff
 {
@@ -39,9 +39,8 @@ typedef struct dataStaff
 }dataStaff;
 
 String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?id_mc=02-02&id_rfid=0004953220&id_activity=4539&activity_type=1&no_send=1&no_pulse1=300&no_pulse2=1&no_pulse3=100&multiplier=1";
-
-String Nodered_2 = "http://20.231.75.176:1880/touch?id_mc=mc200&rfid=1165304621";
-
+HTTPClient http;
+//String Nodered_2 = http://20.231.75.176:1880/touch?id_mc=mc200&rfid=1165304621
 
 void setup() {
   Wire.begin();
@@ -59,20 +58,16 @@ void setup() {
   //swb.on_led();
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
+ 
   state =0;
+
 }
 /*-----------------------------------------------------------------------------------------------------------*/
 dataStaff staff;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
-  
-  //char data = kp.readkeypad();
-  //Serial.println(data);
-  //kp.test();
-  //String keydata = getdataJson("rfid");
-  //Serial.println("rfid : "+keydata);
-  //delay(1000);
+
   if (state == 0)
   {
     oled.clear();
@@ -99,9 +94,10 @@ void loop() {
     delay(1000);
     oled.clear();
   }
+
   if(state == 1 )
   {
-    String data = getdataJson();
+    getdataJson();
     Serial.println("Go to > State 2 ");
     state = 2 ;
   }
@@ -144,7 +140,7 @@ String getdataJson()
     if (error) {
       Serial.print(F("deserializeJson() failed: "));
       Serial.println(error.c_str());
-      return "error";
+      //return "error";
       //return;
     }
     int getdata = doc[key_search];
