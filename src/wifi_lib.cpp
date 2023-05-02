@@ -83,10 +83,34 @@ void wifi_lib::select_ssid()
             switch (data)
             {
             case '1':
-            ssid= data_ssid[0];
-            EEPROM.writeString(0,ssid);
-            EEPROM.commit();
-            Serial.println("\nset ssid = "+ssid);
+                ssid= data_ssid[0];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '2':
+                ssid= data_ssid[1];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '3':
+                ssid= data_ssid[2];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '4':
+                ssid= data_ssid[3];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '5':
+                ssid= data_ssid[4];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
                 break;
             }
         }
@@ -134,7 +158,7 @@ void wifi_lib::check_eeprom_wifi()
     oled.clear();
     oled.showString(1," ssid : "+test_readeeprom_ssid);
     oled.showString(2," pass : "+test_readeeprom_password);
-    delay(3000);
+    delay(1000);
 
     if((test_readeeprom_ssid  == "")||(test_readeeprom_password ==""))
     {
@@ -174,10 +198,14 @@ void wifi_lib::check_eeprom_wifi()
                     break;
                 case '2':
                     Serial.println("Next >>>> no Clear Wifi");
+                    oled.clear();
+                    oled.showString(1," ok clear EEPROM");
                     clearEEPROM();
                     searchWiFi();
                     connect_wifi();
                     state_wifi =1;
+                    delay(1000);
+                    oled.clear();
                     break;
                 default:
                     select_wifi ='e';

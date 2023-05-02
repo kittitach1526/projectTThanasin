@@ -9,8 +9,8 @@
 #include "keypadbox.h"
 
 byte state=0;
-String getdataJsonTouch(String key_search);
-String getdataJsonGetDataTouch(String key_search);
+String getdataJson();
+String getValue(String data, char separator, int index);
 void checkState();
 
 
@@ -103,7 +103,9 @@ void loop() {
   }
   if(state == 1 )
   {
-
+    String data = getdataJson();
+    Serial.println("Go to > State 2 ");
+    state = 2 ;
   }
 
 }
@@ -122,8 +124,9 @@ String getValue(String data, char separator, int index)
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
-String getdataJson(String key_search)
+String getdataJson()
 {
+  String key_search="";
   //http.begin(serverUrl);
   http.begin(Nodered_2);
   int httpResponseCode = http.GET();
