@@ -58,8 +58,9 @@ void setup() {
   //swb.on_led();
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
- 
+  getdataJson(); // test json funtion 
   state =0;
+  
 
 }
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -88,18 +89,12 @@ void loop() {
     oled.showString(1,data_to_show);
     delay(2000);
     oled.clear();
-    state = 1 ;
     Serial.println(" Go to > State 1 ");
     oled.showString(1,"Go to > State 1 ");
     delay(1000);
     oled.clear();
-  }
-
-  if(state == 1 )
-  {
-    getdataJson();
-    Serial.println("Go to > State 2 ");
-    state = 2 ;
+    state = 1 ;
+    
   }
 
 }
@@ -133,25 +128,20 @@ String getdataJson()
     payload = getValue(payload,'[',1);
     payload = getValue(payload,']',0);
     Serial.println(payload);
-
+/*
     // Parse JSON object
-    DynamicJsonDocument doc(1024);
-    DeserializationError error = deserializeJson(doc, payload);
-    if (error) {
-      Serial.print(F("deserializeJson() failed: "));
-      Serial.println(error.c_str());
-      //return "error";
-      //return;
-    }
+    DynamicJsonDocument doc(2048);
+    //StaticJsonDocument<256> doc;
+    deserializeJson(doc, payload);
     int getdata = doc[key_search];
     Serial.println("Value frome key : "+String(getdata));
-    
   } 
   else {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
-  }
+  }*/
   Serial.println("return resources ..");
   delay(1000);
   http.end();
+}
 }

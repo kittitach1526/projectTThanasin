@@ -24,7 +24,8 @@ void wifi_lib::connect_wifi()
         }
     Serial.println("");
     Serial.println("WiFi connected");
-    Serial.println("IP address: "+String(WiFi.localIP()));
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
 
 
 }
@@ -34,7 +35,7 @@ void wifi_lib::searchWiFi()
     //Serial.begin(115200);
 
    // WiFi.mode(WIFI_STA);
-    WiFi.mode(WIFI_MODE_APSTA);
+   // WiFi.mode(WIFI_MODE_APSTA);
     WiFi.disconnect();
     delay(100);
     Serial.println("Setup done");
