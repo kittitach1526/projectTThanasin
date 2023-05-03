@@ -140,11 +140,9 @@ void api_contact()
       payload = getValue(payload,']',0);
       Serial.println(payload);
       DynamicJsonDocument doc(2048);
-      //StaticJsonDocument<256> doc;
       deserializeJson(doc, payload);
       int getdata = doc["job_id"];
       Serial.println("Value frome key : "+String(getdata));
-      //Serial.println(payload);
     }
   } else {
     Serial.println("Error in HTTP request");
