@@ -34,7 +34,7 @@ typedef struct dataStaff
   String op_name ="";//
   int qty_oder =0;
   int qty_comp = 0;
-  int qty_opcn =0;
+  int qty_open =0;
   int multiplior =0;
   int qty_shif =0;
 }dataStaff;
@@ -59,8 +59,6 @@ void setup() {
   //swb.on_led();
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
-  //getdataJson(); // test json funtion 
-  //api_contact();
   state =0;
   
 
@@ -70,7 +68,6 @@ dataStaff staff;
 
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
-
   if (state == 0)
   {
     oled.clear();
@@ -105,8 +102,9 @@ void loop() {
     Serial.println(" Go to > State 2 ");
     oled.showString(1,"Go to > State 2 ");
   }
-
 }
+
+
 String getValue(String data, char separator, int index)
 {
     int found = 0;
@@ -139,10 +137,57 @@ void api_contact()
       payload = getValue(payload,'[',1);
       payload = getValue(payload,']',0);
       Serial.println(payload);
+      Serial.println();
       DynamicJsonDocument doc(2048);
       deserializeJson(doc, payload);
-      int getdata = doc["job_id"];
-      Serial.println("Value frome key : "+String(getdata));
+
+      staff.id_job = doc["job_id"];
+      Serial.println("job_id : "+String(staff.id_job));
+
+      String data_id_mc = doc["id_mc"];
+      staff.id_mc = data_id_mc;
+      Serial.println("id_mc : "+String(staff.id_mc));
+
+      String data_id_staff = doc["id_staff"];
+      staff.id_staff = data_id_staff;
+      Serial.println("id_staff : "+String(staff.id_staff));
+
+      staff.id_task=doc["id_task"];
+      Serial.println("id_task : "+String(staff.id_task));
+
+      String data_item_no = doc["item_on"];
+      staff.item_no = data_item_no;
+      Serial.println("item_no : "+String(staff.item_no));
+
+      String data_name_first = doc["nameStaff"];
+      staff.name_first = data_name_first;
+      Serial.println("name_first : "+String(staff.name_first));
+
+      String data_lastname = doc["lastnameStaff"];
+      staff.name_last = data_lastname;
+      Serial.println("name_last : "+String(staff.name_last));
+
+      staff.op_color =doc["op_color"];
+      Serial.println("op_color : "+String(staff.op_color));
+
+      String data_op_name = doc["op_name"];
+      staff.op_name = data_op_name;
+      Serial.println("op_name : "+String(staff.op_name));
+
+      String data_op_side = doc["op_side"];
+      staff.op_side = data_op_side;
+      Serial.println("op_side : "+String(staff.op_side));
+
+      staff.qty_comp = doc["qty_complete"];
+      Serial.println("qty_comp : "+String(staff.qty_comp));
+
+      staff.qty_oder = doc["qty_order"];
+      Serial.println("qty_order : "+String(staff.qty_oder));
+
+      staff.qty_open = doc["qty_open"];
+      Serial.println("qty_open : "+String(staff.qty_open));
+
+      Serial.println();
     }
   } else {
     Serial.println("Error in HTTP request");
