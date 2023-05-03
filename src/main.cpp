@@ -121,39 +121,7 @@ String getValue(String data, char separator, int index)
         }
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
-}/*
-String getdataJson()
-{
-  String test_server = "http://20.231.75.176:1880/touch?id_mc="+mc_number+"&rfid="+rf_st.result_rfid;
-  String key_search="job_id";
-  //http.begin(serverUrl);
-  http.begin(test_server);
-  int httpResponseCode = http.GET();
-
-  if (httpResponseCode == 200) {
-    String payload = http.getString();
-    Serial.print("Json : ");
-    //Serial.println(payload);
-    payload = getValue(payload,'[',1);
-    payload = getValue(payload,']',0);
-    Serial.println(payload);
-/*
-    // Parse JSON object
-    DynamicJsonDocument doc(2048);
-    //StaticJsonDocument<256> doc;
-    deserializeJson(doc, payload);
-    int getdata = doc[key_search];
-    Serial.println("Value frome key : "+String(getdata));
-  } 
-  else {
-    Serial.print("HTTP Response code: ");
-    Serial.println(httpResponseCode);
-  }
-  Serial.println("return resources ..");
-  delay(1000);
-  http.end();
 }
-*/
 
 void api_contact()
 {
@@ -181,7 +149,4 @@ void api_contact()
   } else {
     Serial.println("Error in HTTP request");
   }
-
-  // Wait for 5 seconds before sending the next request
-  //delay(5000);
 }
