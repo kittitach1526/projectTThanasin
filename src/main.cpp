@@ -155,7 +155,7 @@ void api_contact()
       staff.id_task=doc["id_task"];
       Serial.println("id_task : "+String(staff.id_task));
 
-      String data_item_no = doc["item_on"];
+      String data_item_no = doc["item_no"];
       staff.item_no = data_item_no;
       Serial.println("item_no : "+String(staff.item_no));
 
