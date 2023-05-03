@@ -24,19 +24,19 @@ typedef struct dataStaff
   String id_mc ="";//
   String name_first = ""; //
   String name_last = ""; //
-  int role ="";
-  int id_task ="";
-  int id_job ="";
+  int role =0;
+  int id_task =0;
+  int id_job =0;
   String item_no = "";//
-  int operation ="";
-  int op_color ="";
+  int operation =0;
+  int op_color =0;
   String op_side ="";//
   String op_name ="";//
-  int qty_oder ="";
-  int qty_comp = "";
-  int qty_opcn ="";
-  int multiplior ="";
-  int qty_shif ="";
+  int qty_oder =0;
+  int qty_comp = 0;
+  int qty_opcn =0;
+  int multiplior =0;
+  int qty_shif =0;
 }dataStaff;
 
 String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?id_mc=02-02&id_rfid=0004953220&id_activity=4539&activity_type=1&no_send=1&no_pulse1=300&no_pulse2=1&no_pulse3=100&multiplier=1";
