@@ -20,22 +20,23 @@ String mc_number = "mc200";
 
 typedef struct dataStaff
 {
-  String id_staff ="";
-  String name_first = "";
-  String name_last = "";
-  String role ="";
-  String id_task ="";
-  String id_job ="";
-  String item_no = "";
-  String operation ="";
-  String op_color ="";
-  String op_side ="";
-  String op_name ="";
-  String qty_oder ="";
-  String qty_comp = "";
-  String qty_opcn ="";
-  String multiplior ="";
-  String qty_shif ="";
+  String id_staff ="";//
+  String id_mc ="";//
+  String name_first = ""; //
+  String name_last = ""; //
+  int role ="";
+  int id_task ="";
+  int id_job ="";
+  String item_no = "";//
+  int operation ="";
+  int op_color ="";
+  String op_side ="";//
+  String op_name ="";//
+  int qty_oder ="";
+  int qty_comp = "";
+  int qty_opcn ="";
+  int multiplior ="";
+  int qty_shif ="";
 }dataStaff;
 
 String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?id_mc=02-02&id_rfid=0004953220&id_activity=4539&activity_type=1&no_send=1&no_pulse1=300&no_pulse2=1&no_pulse3=100&multiplier=1";
@@ -120,7 +121,7 @@ String getValue(String data, char separator, int index)
         }
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
+}/*
 String getdataJson()
 {
   String test_server = "http://20.231.75.176:1880/touch?id_mc="+mc_number+"&rfid="+rf_st.result_rfid;
@@ -147,12 +148,12 @@ String getdataJson()
   else {
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
-  }*/
+  }
   Serial.println("return resources ..");
   delay(1000);
   http.end();
 }
-}
+*/
 
 void api_contact()
 {
