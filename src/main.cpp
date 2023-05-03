@@ -60,12 +60,9 @@ void setup() {
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
   state =0;
-  
-
 }
 /*-----------------------------------------------------------------------------------------------------------*/
 dataStaff staff;
-
 /*-----------------------------------------------------------------------------------------------------------*/
 void loop() { 
   if (state == 0)
@@ -90,17 +87,36 @@ void loop() {
     oled.clear();
     Serial.println(" Go to > State 1 ");
     oled.showString(1,"Go to > State 1 ");
+    oled.showString(2,"API Contact ..");
     delay(1000);
-    oled.clear();
+    
     state = 1 ;
     
   }
   if(state == 1)
   {
     api_contact();
-    state =2;
+    delay(1000);
+    oled.clear();
     Serial.println(" Go to > State 2 ");
     oled.showString(1,"Go to > State 2 ");
+    delay(1000);
+    state =2;
+  }
+  if(state == 2)
+  {
+      oled.clear();
+      String line1 = "Name: "+String(staff.name_first);
+      String line2 ="Last name: "+String(staff.name_last);
+      String line3 = "Job: "+String(staff.id_job);
+      String line4 ="ID Staff: "+String(staff.id_staff);
+      oled.showString(1,line1);
+      oled.showString(2,line2);
+      oled.showString(3,line3);
+      oled.showString(4,line4);
+      Serial.println("Go to > State 3");
+      delay(5000);
+      state =3;
   }
 }
 
