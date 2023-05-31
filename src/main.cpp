@@ -53,7 +53,7 @@ void setup() {
   oled.show(1," Code by Glenda 0.8");
   delay(1000);
   oled.clear();
-  Serial.println("\nVersion : 0.8  check rfid + wifi + api  ");
+  Serial.println("\nVersion : 0.9x  check rfid + wifi + api  ");
   w.BeginEEP();
   w.check_eeprom_wifi();
   //swb.on_led();
