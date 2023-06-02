@@ -31,9 +31,9 @@ char keypadbox::readkeypad()
     //oled.drawStr(0,0,msg);
     if (customKey != NO_KEY)
     {
-        Serial.println(customKey);
+        //Serial.println(customKey);
         //msg += customKey;
-        Serial.println(msg);
+        //Serial.println(msg);
         //oled.drawStr(0,0,msg);
         return customKey;
         

@@ -26,14 +26,35 @@ void wifi_lib::connect_wifi()
     Serial.println("WiFi connected");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+}
 
-
+void wifi_lib::connect_wifi_by_eep()
+{
+    w.ssid = get_ssid_eep();
+    w.password = get_pass_eep(); 
+    Serial.println("ssid connect eep :"+w.ssid);
+    Serial.println("password connect eep :"+w.password);
+    WiFi.begin(w.ssid.c_str(),w.password.c_str());
+    while (WiFi.status() != WL_CONNECTED)
+        {
+            delay(1000);
+            count_restart +=1;
+            Serial.print(".");
+            if(count_restart > 15 )
+            {
+                Serial.println("restart !");
+                ESP.restart(); 
+            }
+        }
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
 }
 
 void wifi_lib::searchWiFi()
 {
     //Serial.begin(115200);
-
    // WiFi.mode(WIFI_STA);
    // WiFi.mode(WIFI_MODE_APSTA);
     WiFi.disconnect();
@@ -67,7 +88,50 @@ void wifi_lib::searchWiFi()
     }
 }
     Serial.println("");
-    select_ssid();
+    Serial.println("Search wifi complete !");
+    //select_ssid();
+}
+
+void wifi_lib::scanWiFi()
+{
+    searchWiFi();
+    oled.clear();
+    for (int i=0;i<4;i++){
+        Serial.println(String(i+1)+"."+data_ssid[i]);
+        String result_to_show = String(i+1)+"."+data_ssid[i];
+        oled.showString(i+1,result_to_show);
+    }
+}
+
+void wifi_lib::Select_wifi(char data)
+{
+        switch (data)
+            {
+            case '1':
+                ssid= data_ssid[0];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '2':
+                ssid= data_ssid[1];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '3':
+                ssid= data_ssid[2];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            case '4':
+                ssid= data_ssid[3];
+                EEPROM.writeString(0,ssid);
+                EEPROM.commit();
+                Serial.println("\nset ssid = "+ssid);
+                break;
+            }
 }
 
 void wifi_lib::select_ssid()
@@ -140,10 +204,11 @@ void wifi_lib::select_ssid()
 
 void wifi_lib::BeginEEP()
 {
-    oled.show(1," check eeprom..");
+    //oled.show(1," check eeprom..");
     EEPROM.begin(64);
     delay(1000);
-    oled.clear();
+    Serial.println("Begin EEP complete");
+    //oled.clear();
 }
 
 void wifi_lib::check_eeprom_wifi()
@@ -261,4 +326,26 @@ void wifi_lib::clearEEPROM()
   // Commit ข้อมูลเพื่อเขียนข้อมูลลงใน EEPROM
     EEPROM.commit();
     Serial.println("Claer EEPROM Complete !");
+}
+
+String wifi_lib::get_ssid_eep()
+{
+    result_get_ssid_eep = EEPROM.readString(0);
+    Serial.println("result_ssid_eep : "+result_get_ssid_eep);
+    return result_get_ssid_eep;
+}
+String wifi_lib::get_pass_eep()
+{
+    result_get_pass_eep = EEPROM.readString(32);
+    Serial.println("result_pass_eep : "+result_get_pass_eep );
+    return result_get_pass_eep;
+}
+
+void wifi_lib::setEEPwifi(String ssid,String passwrod)
+{
+    EEPROM.writeString(0,ssid);
+    EEPROM.commit();
+    EEPROM.writeString(32,password);
+    EEPROM.commit();
+    Serial.println("setEEP complete!");
 }

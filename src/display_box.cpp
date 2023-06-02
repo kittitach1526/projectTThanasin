@@ -78,7 +78,7 @@ void display_box::show(int line,char *data_to_show)
     }
     if(line == 5 )
     {
-        display.clear();
+        //display.clear();
         dw_font_goto(&myfont, TAB0, LINE5);
         dw_font_print(&myfont, data_to_show);
         //display.display();

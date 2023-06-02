@@ -8,15 +8,26 @@
 #include <ArduinoJson.h>
 #include "keypadbox.h"
 
+
 byte state=0;
 String getdataJson();
 String getValue(String data, char separator, int index);
+void process_count_empty_time();
 void api_contact();
 
 String mc_number = "mc200";
 
 #include <Wire.h>
+unsigned long m=0;
 
+int hour=0;
+int minute=0;
+int sec=0;
+unsigned long count_for_show= 0;
+unsigned long count_for_connect_wifi= 0;
+String result_time="";
+int count_state_1 = 0;
+int count_millis_state1 =0;
 
 typedef struct dataStaff
 {
@@ -43,6 +54,7 @@ String serverUrl ="https://bunnam.com/projects/majorette_pp/update/quit_v3.php?i
 HTTPClient http;
 String Nodered_2 = "http://20.231.75.176:1880/touch?id_mc=mc200&rfid=1165304621";
 
+
 void setup() {
   Wire.begin();
   Serial.begin(9600);
@@ -50,12 +62,14 @@ void setup() {
   //swb.setpin_switch(25,27,12);//w,b,y
   oled.intit_display();
   oled.clear();
-  oled.show(1," Code by Glenda 0.8");
+  oled.show(1," Code by Glenda 0.9x");
   delay(1000);
   oled.clear();
-  Serial.println("\nVersion : 0.9x  check rfid + wifi + api  ");
+  Serial.println("\nVersion : 0.10x  check rfid + wifi + api  ");
   w.BeginEEP();
-  w.check_eeprom_wifi();
+  //w.clearEEPROM();
+  //w.setEEPwifi("","");// adess[0],[32]
+  //w.check_eeprom_wifi();
   //swb.on_led();
   rf_st.Init_rfid();
   Serial.println("All Setup Complete!"); 
@@ -67,57 +81,205 @@ dataStaff staff;
 void loop() { 
   if (state == 0)
   {
-    oled.clear();
     Serial.println("Now State 0 ");
-    oled.showString(1,"Now state 0 ");
-    delay(2000);
     oled.clear();
-    Serial.println("tap keycard ..");
-    oled.showString(1,"tap keycard ..");
-    while(rf_st.result_rfid =="")
-    {
-      rf_st.read_rfid();
-    }
-    Serial.println("RFID : "+rf_st.result_rfid);
-
-    oled.clear();
-    String data_to_show = "RFID : "+rf_st.result_rfid;
-    oled.showString(1,data_to_show);
-    delay(2000);
-    oled.clear();
-    Serial.println(" Go to > State 1 ");
-    oled.showString(1,"Go to > State 1 ");
-    oled.showString(2,"API Contact ..");
-    delay(1000);
-    
-    state = 1 ;
-    
+    oled.showString(1,"Majorette(Thailand)Co,LTD");
+    oled.showString(2,"-----------------------------------------");
+    oled.showString(3,"Connect to WiFi / Press A");
+    String ssid = w.get_ssid_eep();
+    String reslut_show_state0 = "SSID: "+ssid;
+    oled.showString(4,reslut_show_state0);
+    count_for_connect_wifi= millis();
+    state = 1;
   }
+/*-----------------------------------------------------*/
+  if(state ==1 )
+  {
+    String ssid = w.get_ssid_eep();
+    //Serial.println("ssid_state1 : "+ssid);
+    if(ssid == "")
+    {
+      Serial.println("Don't have ssid .");
+      oled.clear();
+      oled.showString(1,"Scan WiFi ...");
+      w.scanWiFi();
+      state =2 ;
+    }
+    else
+    {
+      
+      if(millis()-count_for_connect_wifi>5000)
+      {
+        Serial.println("connect to  : "+ssid);
+        state =4 ;
+      }
+      char data = kp.readkeypad();
+      if(data != 'e')
+      {
+        Serial.println(data);
+        if(data == 'A')
+        {
+          oled.clear();
+          oled.showString(1,"Scan WiFi ...");
+          w.clearEEPROM();
+          Serial.println("Have ssid and press A button reset wifi");
+          w.scanWiFi();
+          //oled.clear();
+          state =2;
+        }
+      }
+    }
+  }
+/*-----------------------------------------------------*/
+  if(state ==2 )
+  {
+    char data = kp.readkeypad();
+    if(data != 'e')
+    {
+      Serial.println(data);
+      w.Select_wifi(data);
+      oled.clear();
+      oled.show(2,"ใส่รหัสผ่าน WiFi");
+      oled.showString(2,"password : _"+w.password);
+      state =3;
+    }
+  }
+/*-----------------------------------------------------*/
+if(state == 3)
+{
+  char data = kp.readkeypad();
+    if(data != 'e')
+    {
+      if(data != '*')
+      {
+        oled.clear();
+        w.password += data;
+        Serial.println("keypad password : "+w.password);
+        oled.show(2,"ใส่รหัสผ่าน WiFi");
+        oled.showString(2,"password : "+w.password+"_");
+      }
+      else
+      {
+        Serial.println("keypad = '*'");
+        if(w.password == "001")
+        {
+          w.ssid = "makoto";
+          w.password = "naekimakoto";
+          w.setEEPwifi(w.ssid,w.password);
+          Serial.println("Use set by Glenda ! ");
+          Serial.println("go to state 4 !");
+          state =4;
+        }
+        else
+        {
+          Serial.println("set password = "+w.password);
+          w.setEEPwifi(w.ssid,w.password);
+          state =4 ;
+        }
+      }
+    }
+    if(Serial.available()>0)
+    {
+      w.password = Serial.readString();
+      Serial.println("keyboard : "+w.password);
+      w.setEEPwifi(w.ssid,w.password);
+      state = 4;
+    }
+}
+/*-----------------------------------------------------*/
+  if(state == 4)
+  {
+    w.connect_wifi_by_eep();
+    Serial.println("go to state 5 !");
+    state =5 ;
+  }
+/*-----------------------------------------------------*/
+  
+  if(state == 5)
+  {
+    if(millis()-m > 1000)
+    {
+      process_count_empty_time();
+      oled.clear();
+      oled.show(1,"        (P) mc/no.02-03");
+      oled.show(2,"      โปรดทำการสแกนบัตร");
+      String result_to_showe = "             "+result_time;
+      oled.showString(2,result_to_showe);
+      m = millis();
+    }
+  }
+
+/*
+  if (state == 300)
+  {
+    process_count_empty_time();
+    
+  }*/
+  /*
   if(state == 1)
   {
-    api_contact();
-    delay(1000);
+    Serial.println("Now state 2 ");
     oled.clear();
-    Serial.println(" Go to > State 2 ");
-    oled.showString(1,"Go to > State 2 ");
-    delay(1000);
-    state =2;
-  }
-  if(state == 2)
-  {
-      oled.clear();
-      String line1 = "Name: "+String(staff.name_first);
-      String line2 ="Last name: "+String(staff.name_last);
-      String line3 = "Job: "+String(staff.id_job);
-      String line4 ="ID Staff: "+String(staff.id_staff);
-      oled.showString(1,line1);
-      oled.showString(2,line2);
-      oled.showString(3,line3);
-      oled.showString(4,line4);
-      Serial.println("Go to > State 3");
-      delay(5000);
-      state =3;
-  }
+    oled.show(1,"        (P) mc/no.02-03");
+    oled.show(2,"      โปรดทำการสแกนบัตร");
+    oled.showString(3,"Best");
+    state = 3;
+  }*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+void process_count_empty_time()
+{
+  if(millis()-count_for_show > 1000)
+    {
+      sec +=1;
+      // สร้าง String เก็บเวลา
+      if(sec > 59)
+      {
+        minute++;
+        sec =0;
+      }
+      if(minute > 59)
+      {
+        hour++;
+        minute =0;
+      }
+
+
+      if (hour < 10) {
+        result_time = "0"+String(hour) + ":";
+      }
+      //result_time = String(hour) + ":";
+      if(hour > 10){
+        result_time = String(hour) + ":";
+      }
+
+      if (minute < 10) {
+        result_time += "0";
+      }
+      result_time += String(minute) + ":";
+
+      if (sec < 10) {
+        result_time += "0";
+      }
+      result_time += String(sec);
+      Serial.println(result_time);
+      count_for_show = millis();
+    }
 }
 
 
