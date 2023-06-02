@@ -191,6 +191,7 @@ if(state == 3)
   {
     w.connect_wifi_by_eep();
     Serial.println("go to state 5 !");
+    m=millis();
     state =5 ;
   }
 /*-----------------------------------------------------*/
@@ -207,6 +208,19 @@ if(state == 3)
       oled.showString(2,result_to_showe);
       m = millis();
     }
+    rf_st.read_rfid();
+    if(rf_st.result_rfid != "")
+    {
+      Serial.print("RFID Length : ");
+      Serial.println(rf_st.result_rfid.length());
+      Serial.println("RFID Num :"+rf_st.result_rfid);
+      state =6;
+    }
+  }
+  if(state == 6)
+  {
+    api_contact();
+    state =7;
   }
 
 /*
